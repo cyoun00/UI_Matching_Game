@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import GameComponent from './components/Game';
+import './style.css';
 
 function App() {
   const [consentgiven, setConsentgiven] = useState(false);
@@ -83,7 +85,7 @@ function App() {
               id="inline-radio-6"
               onChange={(e) => setCards("bread")}/>
 
-            <Button type="submit" onClick={() => setScreen("game")}>Start</Button>
+            <Button onClick={() => setScreen("game")}>Start</Button>
 
           </Form>
           <p>{cards ? cards : "Null"}</p>
@@ -91,7 +93,7 @@ function App() {
       )}
       {consentgiven === true && screen === "game" &&(
         <section>
-          <p>component</p>
+          <GameComponent level = {level} cardType={cards}/>
         </section>
       )}
     </div>
