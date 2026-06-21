@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Card, CardImg} from 'react-bootstrap';
+import WinComponent from '../components/Win';
 import cake1 from '../assets/cake1.png';
 import cake2 from '../assets/cake2.png';
 import cake3 from '../assets/cake3.png';
@@ -13,7 +14,7 @@ import '../style.css';
 export default function Game({ level, cardType }){
     const [cardOne, setCardOne] = useState(null);
     const [cardTwo, setCardTwo] = useState(null);
-    const [fliped, setFliped] = useState([]);
+    const [flipped, setFlipped] = useState([]);
     const [matched, setMatched] = useState([]);
     const [moves, setMoves] = useState(0);
     const [matches, setMatches] = useState(0);
@@ -58,7 +59,8 @@ export default function Game({ level, cardType }){
         setTimeout(()=>{
             const randomArray = FisherYatesShuffle(dict[level].cards);
             setCardsGrid(randomArray);
-            setMatches(Array(dict[level].cards.length).fill(false));
+            setFlipped(Array(dict[level].cards.length).fill(false));
+            setMatched(Array(dict[level].cards.length).fill(false));
             setMoves(0);
             setMatches(0);
             setCardOne(null);
@@ -67,15 +69,33 @@ export default function Game({ level, cardType }){
     }
 
     function selectCards(id){
-        if(cardOne === null || cardOne[0] !== true){
-            setCardOne(fliped[id],cardsGrid[id]);
+        setMoves(prev => prev + 1);
+        if (matched[id]){
+            return;
         }
-        else{
-            setCardTwo(fliped[id],cardsGrid[id]);
+
+        if(!cardOne || !cardTwo){
+            if (!cardOne) {
+                setCardOne({
+                    id,
+                    value: cardsGrid[id]
+                });
+            } else if (!cardTwo && cardOne.id !== id) {
+                setCardTwo({
+                    id,
+                    value: cardsGrid[id]
+                });
+            }
         }
     }
 
     function deselect(){
+        setFlipped((prev => {
+                        const copy = [...prev];
+                        copy[cardOne.id] = false;
+                        copy[cardTwo.id] = false;
+                        return copy;
+                    }));
         setCardOne(null);
         setCardTwo(null);
     }
@@ -88,23 +108,35 @@ export default function Game({ level, cardType }){
             const temp = array[i];
             array[i] = array[j];
             array[j] = temp;
-            console.log(j+" "+temp);
         }
         return array;
     }
 
     useEffect(()=>{
-        if(cardOne && cardTwo){
-            if(cardOne === cardTwo){
-                matched[cardOne[1]] = true;
-                setMatches(matches + 1);
-                deselect();
-            }
-            else{
-                deselect();
-            }
+        if(!cardOne || !cardTwo){
+            return;
         }
-    })
+        if (cardOne.value === cardTwo.value) {
+
+            setMatched(prev => {
+                const copy = [...prev];
+                copy[cardOne.id] = true;
+                copy[cardTwo.id] = true;
+                return copy;
+            });
+
+            setMatches(prev => prev + 1);
+
+            setCardOne(null);
+            setCardTwo(null);
+            deselect();
+        }
+        else{
+            setTimeout(() => {
+                deselect();
+            }, 1000);
+        }
+    }, [cardOne, cardTwo]);
 
     useEffect(() => {
         NewGame();
@@ -112,25 +144,35 @@ export default function Game({ level, cardType }){
 
     return(
         <div>
-            <h1>Memory Bakery</h1>
-            <section className={'board-'+level}>
-                {dict[level].ids.map(id=>(
-                    <Card
-                        item={cardsGrid[id]}
-                        key={id}
-                        onClick={() => fliped[id] = true, selectCards(id)}
-                        >
-                        {fliped[id] || matched[id] ? (<img className = "square-img" src = {dict[cardType][cardsGrid[id]]} alt = {cardType} style={{
-                            width: "200px", 
-                            height: "auto", 
-                        }}></img>) : ("?")}
-                    </Card>))
-                }
-            </section>
             {matches !== dict[level].win ? (
+                <section>
+                <h1>Memory Bakery</h1>
+                <section className={'board-'+level}>
+                    {dict[level].ids.map(id=>(
+                        <Card
+                            item={cardsGrid[id]}
+                            key={id}
+                            onClick={() => {
+                                if (matched[id]) {return};
+                                setFlipped(prev => {
+                                    const copy = [...prev];
+                                    copy[id] = true;
+                                    return copy;
+                                });
+                                selectCards(id);}
+                            }
+                            >
+                            {(flipped[id] || matched[id]) ? (<img className = "square-img" src = {dict[cardType][cardsGrid[id]]} alt = {cardType} style={{
+                                width: "200px", 
+                                height: "auto", 
+                            }}></img>) : ("?")}
+                        </Card>))
+                    }
+                </section>
                 <div>Moves : {moves}</div>
+            </section>
             ) : (
-                <div>You Won in {moves} moves</div>
+                <WinComponent level = {level} cardType = {cardType} moves = {moves}/>
             )}
         </div>
     );
