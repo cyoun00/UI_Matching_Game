@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {Card, CardImg} from 'react-bootstrap';
+import React, {useState, useEffect, useCallback} from 'react';
+import {Card} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import WinComponent from '../components/Win';
 import MenuComponent from '../components/Menu';
@@ -95,7 +95,7 @@ export default function Game({ level, cardType }){
 
     const [cardsGrid, setCardsGrid] = useState([]);
 
-    function NewGame(){
+    const NewGame = useCallback(() =>{
         setTimeout(()=>{
             const randomArray = FisherYatesShuffle(dict[level].cards);
             setCardsGrid(randomArray);
@@ -106,7 +106,7 @@ export default function Game({ level, cardType }){
             setCardOne(null);
             setCardTwo(null);
         }, 1000);
-    }
+    }, [level]);
 
     function selectCards(id){
         setMoves(prev => prev + 1);
@@ -129,7 +129,7 @@ export default function Game({ level, cardType }){
         }
     }
 
-    function deselect(){
+    const deselect = useCallback(() =>{
         setFlipped((prev => {
                         const copy = [...prev];
                         copy[cardOne.id] = false;
@@ -138,7 +138,7 @@ export default function Game({ level, cardType }){
                     }));
         setCardOne(null);
         setCardTwo(null);
-    }
+    }, [cardOne, cardTwo]);
 
     function FisherYatesShuffle(array) {
 
@@ -176,11 +176,11 @@ export default function Game({ level, cardType }){
                 deselect();
             }, 1000);
         }
-    }, [cardOne, cardTwo]);
+    }, [cardOne, cardTwo, deselect]);
 
     useEffect(() => {
         NewGame();
-    }, []);
+    }, [NewGame]);
 
     return(
         <div>
