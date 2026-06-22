@@ -1,22 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Text&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff&display=swap');
+body{
+    background-color : #FFC7D4
+}
+p{
+    font-family: "Big Shoulders Text";
+    font-size:xx-large;
+}
+.text{
+    font-family: "Big Shoulders Text";
+    font-size:xx-large;
+}
+.title{
+    font-family: "DynaPuff";
+    font-size: 5rem;
+}
+.title2{
+    font-family: "DynaPuff";
+    font-size: 2.5rem;
+    color: #0395CC;
+}
+.btn-action{
+    font-size: x-large;
+    color: white;
+    font-family: "Big Shoulders Text";
+    background-color: #EA342E;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 .2rem 0.5rem black;
+    margin: 8px;
+}
+.btn-benefit{
+    font-size: x-large;
+    font-family: "Big Shoulders Text";
+    background-color: #FA912C;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 .2rem 0.5rem black;
+    margin: 8px;
+}
+.radio-section{
+    display: flex;
+    justify-content: space-around;
+    justify-items: center;
+    accent-color: #EA342E;
+}
+.centered-section{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 .board-easy{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
+    gap: 10px;
 }
 
 .board-medium{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
+    gap: 10px;
 }
 
 .board-hard{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 10px;
 }
 
 .square-img {
     width: 150px;
     height: auto;
+}
+
+.card-form{
+    width: 200px;
+    height: 200px;
+    font-size: xx-large;
+    justify-items: center;
+    align-items: center;
+    background-color: white;
 }

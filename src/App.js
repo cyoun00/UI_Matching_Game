@@ -14,11 +14,11 @@ function App() {
   return (
     <div className="App">
       {consentgiven === false && (
-        <section>
-          <h1>Memory Bakery</h1>
+        <section className="centered-section">
+          <h1 className="title">Memory Bakery</h1>
           <p>You are 13 years old or older, or give parental consent to terms and conditions.</p>
           <Form>
-            <Form.Check
+            <Form.Check className="text"
               type= "checkbox"
               id= "I Agree"
               label= "I Agree"
@@ -26,7 +26,6 @@ function App() {
               onChange={handleChange}
             />
           </Form>
-          <p>{consentgiven ? consentgiven : "Not Accepted"}</p>
         </section>
       )}
       {consentgiven === true &&(

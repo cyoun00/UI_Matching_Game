@@ -13,13 +13,13 @@ export default function Win({ level, cardType, moves }){
     return(
         <div>
             {screen === "win"&&(
-                <section>
-                    <h1>Memory Bakery</h1>
-                    <h2>You Win!</h2>
-                    <h3>Completed Level: {difficulty[level]}</h3>
-                    <h3>Moves: {moves}</h3>
-                    <Button onClick = {()=>setScreen("game")}>Restart</Button>
-                    <Button onClick = {()=>setScreen("menu")}>Home</Button>
+                <section className='centered-section'>
+                    <h1 className="title">Memory Bakery</h1>
+                    <h2 className="text">You Win!</h2>
+                    <h3 className="text">Completed Level: {difficulty[level]}</h3>
+                    <h3 className="text">Moves: {moves}</h3>
+                    <Button className= "btn-action" onClick = {()=>setScreen("game")}>Restart</Button>
+                    <Button className= "btn-action" onClick = {()=>setScreen("menu")}>Home</Button>
                 </section>
             )}
             {screen === "game"&&(
