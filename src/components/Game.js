@@ -30,16 +30,7 @@ import donut7 from '../assets/donut7.png';
 import donut8 from '../assets/donut8.png';
 import '../style.css';
 
-export default function Game({ level, cardType }){
-    const [screen, setScreen] = useState("game");
-    const [cardOne, setCardOne] = useState(null);
-    const [cardTwo, setCardTwo] = useState(null);
-    const [flipped, setFlipped] = useState([]);
-    const [matched, setMatched] = useState([]);
-    const [moves, setMoves] = useState(0);
-    const [matches, setMatches] = useState(0);
-
-    const dict = {
+const dict = {
         "easy": {
             "rows": 2,
             "columns": 4,
@@ -93,6 +84,14 @@ export default function Game({ level, cardType }){
         }
     };
 
+export default function Game({ level, cardType }){
+    const [screen, setScreen] = useState("game");
+    const [cardOne, setCardOne] = useState(null);
+    const [cardTwo, setCardTwo] = useState(null);
+    const [flipped, setFlipped] = useState([]);
+    const [matched, setMatched] = useState([]);
+    const [moves, setMoves] = useState(0);
+    const [matches, setMatches] = useState(0);
     const [cardsGrid, setCardsGrid] = useState([]);
 
     const NewGame = useCallback(() =>{
