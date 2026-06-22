@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import GameComponent from '../components/Game';
 import '../style.css';
+import BackgroundComponent from '../components/Background';
 
 export default function Menu(){
     const [screen, setScreen] = useState("menu");
@@ -12,7 +13,9 @@ export default function Menu(){
     return(
         <div>
         {screen === 'menu' &&(
-        <section className='centered-section'>
+        <div>
+        <BackgroundComponent/>
+        <section className='centered-section' style={{position: "relative", zIndex:2}}>
           <h1 className="title">Memory Bakery</h1>
           <Form>
             <Form.Label className='title2'>Choose your difficulty level:</Form.Label>
@@ -71,6 +74,7 @@ export default function Menu(){
             <Button className="btn-benefit" onClick={() => setScreen("benefits")}>What are the benefits of this game?</Button>
           </Form>
         </section>
+        </div>
       )}
       {screen === "game" &&(
         <section>

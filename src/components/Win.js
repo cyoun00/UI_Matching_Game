@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
 import GameComponent from '../components/Game';
 import MenuComponent from '../components/Menu';
+import logo from '../assets/bread8.png';
 
 export default function Win({ level, cardType, moves }){
     const[screen, setScreen] = useState("win");
@@ -14,7 +15,10 @@ export default function Win({ level, cardType, moves }){
         <div>
             {screen === "win"&&(
                 <section className='centered-section'>
-                    <h1 className="title">Memory Bakery</h1>
+                    <section className="title-section">
+                        <h1 className="title">Memory Bakery</h1>
+                        <img className='logo' src={logo} alt ="logo"></img>
+                    </section>
                     <h2 className="text">You Win!</h2>
                     <h3 className="text">Completed Level: {difficulty[level]}</h3>
                     <h3 className="text">Moves: {moves}</h3>

@@ -3,6 +3,7 @@ import {Card, CardImg} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import WinComponent from '../components/Win';
 import MenuComponent from '../components/Menu';
+import logo from '../assets/bread8.png';
 import cake1 from '../assets/cake1.png';
 import cake2 from '../assets/cake2.png';
 import cake3 from '../assets/cake3.png';
@@ -187,7 +188,10 @@ export default function Game({ level, cardType }){
                 <div>
                 {matches !== dict[level].win ? (
                 <section>
-                <h1 className="title">Memory Bakery</h1>
+                <section className="title-section">
+                    <h1 className="title">Memory Bakery</h1>
+                    <img className='logo' src={logo} alt ="logo"></img>
+                </section>
                 <Button className= "btn-action" onClick={() => setScreen("help")}>Help</Button>
                 <Button className= "btn-action" onClick={() => setScreen("menu")}>Menu</Button>
                 

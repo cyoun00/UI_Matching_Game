@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import MenuComponent from './components/Menu';
+import logo from './assets/bread8.png';
 import './style.css';
 
 function App() {
@@ -12,10 +13,13 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div>
       {consentgiven === false && (
         <section className="centered-section">
-          <h1 className="title">Memory Bakery</h1>
+          <section className="title-section">
+            <h1 className="title">Memory Bakery</h1>
+            <img className='logo' src={logo} alt ="logo"></img>
+          </section>
           <p>You are 13 years old or older, or give parental consent to terms and conditions.</p>
           <Form>
             <Form.Check className="text"
